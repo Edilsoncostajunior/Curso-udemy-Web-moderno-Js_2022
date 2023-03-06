@@ -2,6 +2,19 @@
 <html>
 
 <head>
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form input,
+        form select,
+        form button {
+            margin: 10px;
+            font-size: 1.6em;
+        }
+    </style>
     <meta charset='UTF-8'>
     <title>Axios #02</title>
     <link rel='stylesheet' href='css/estilo.css'>
@@ -10,27 +23,46 @@
 
 <body class="conteudo exercicio">
     <h1>Axios Get/Post</h1>
+    <form name="usuarioForm" action="formulario" method="post">
+        <input type="text" name="nome" placeholder="Nome..." />
+        <input type="text" name="sobrenome" placeholder="Sobrenome..." />
+        <input type="text" name="number" placeholder="Numero..." />
+        <button>Salvar</button>
+    </form>
     <div id="get"></div>
     <div id="post"></div>
 
     <script>
-        function exibirResultado(id,dados) {
-            const texto = JSON.stringify(dados)
-            document.getElementById(id).innerHTML = texto
-        }
+       
         //pode ser feito assim, mas o numero é algo "fixo"
         //axios('parOuImpar?numero=7').then(resp => exibirResultado('get', resp.data))
         
-        axios.get('parOuImpar', {
-            params:{
-                numero: 2
-            }
-        }).then(resp => exibirResultado('get', resp.data))
+        document.usuarioForm.onsubmit = async e  =>{
 
-        axios.post('formulario',{
-            nome: 'Jão',
-            sobrenome: 'Silva'
-        }).then(resp => exibirResultado('post', resp.data))
+            e.preventDefault()
+
+            const form = e.target
+            const data = new FormData(form)
+            number = data.get("number") 
+            data.delete("number")
+            values = new URLSearchParams(data)
+
+            function exibirResultado(id,dados) {
+            const texto = JSON.stringify(dados)
+            document.getElementById(id).innerHTML = texto
+            }
+            
+            
+            axios.get('parOuImpar', {
+                params:{
+                    numero: data.get("number")
+                }
+            }).then(resp => exibirResultado('get', resp.data))
+
+            axios.post('formulario', values).then(resp => exibirResultado('post', resp.data))
+        }
+
+
         
 
     </script>

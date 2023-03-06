@@ -1,3 +1,11 @@
 import React from "react";
 
-export default props => <li>{props.nome} {props.sobrenome}</li>
+const Filhos = (props) => <li>{props.nome} {props.sobrenome}</li>
+
+export {Filhos}
+
+const exportedSon = {
+    Filhos 
+}
+
+export default exportedSon

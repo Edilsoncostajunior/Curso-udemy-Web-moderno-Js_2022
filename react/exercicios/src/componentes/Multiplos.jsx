@@ -6,4 +6,9 @@ const BoaNoite = props => <h1 key={'h1'}>Boa noite {props.nome}!</h1>
 
 export {BoaNoite, BoaTarde}
 
-export default {BoaNoite, BoaTarde}
+const exportedSaudacoes = {
+    BoaNoite,
+    BoaTarde
+}
+
+export default {exportedSaudacoes}
